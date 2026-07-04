@@ -1,0 +1,258 @@
+:root {
+            /* Light Mode Color Palette */
+            --bg-base: #f1f5f9; /* Soft slate background */
+            --card-bg: #ffffff;
+            --input-bg: #e2e8f0; /* Soft gray for idle inputs */
+            --input-active: #bfdbfe; /* Very soft blue for focused inputs */
+            --accent: #3b82f6; /* Bright royal blue */
+            --success: #22c55e; /* Crisp green */
+            --error: #ef4444; /* Sharp red */
+            --text-main: #0f172a; /* Near black */
+            --text-muted: #64748b; /* Medium slate */
+            --border-subtle: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            /* Subtle background mesh gradient */
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,0.03) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.03) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.03) 0, transparent 50%);
+        }
+
+        /* Clean White Card */
+        .card {
+            background: var(--card-bg);
+            padding: 56px 48px;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--border-subtle);
+            width: 440px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        /* Shake animation for error state */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-12px); }
+            40%, 80% { transform: translateX(12px); }
+        }
+        
+        .card.error-shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        h2 {
+            color: var(--text-main);
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 400;
+            margin-bottom: 48px;
+            line-height: 1.5;
+        }
+
+        /* --- Layered Interaction Area --- */
+        .interaction-area {
+            position: relative;
+            height: 64px;
+            margin-bottom: 24px;
+            width: 100%;
+            z-index: 1; 
+        }
+
+        /* Layer 1: Liquid Mechanics */
+        .liquid-layer {
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            -webkit-filter: url('#goo'); 
+            filter: url('#goo');
+            z-index: 1; 
+        }
+
+        .blob-wrapper {
+            width: 100%; height: 100%;
+            display: flex; justify-content: space-between;
+            position: absolute;
+        }
+
+        .blob {
+            width: 48px; height: 64px;
+            background-color: var(--input-bg);
+            border-radius: 14px;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Layer 2: Functional Inputs */
+        .inputs-layer {
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            display: flex; justify-content: space-between;
+            z-index: 50; 
+        }
+
+        .otp-input {
+            width: 48px; height: 64px;
+            background: transparent; 
+            border: none; outline: none;
+            text-align: center; 
+            font-size: 28px; font-weight: 700;
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif;
+            -webkit-appearance: none; 
+            appearance: none;
+            caret-color: var(--accent); 
+            position: relative;
+            z-index: 100;
+        }
+
+        /* Hover/Active States */
+        .blob.is-focused, .blob.has-value {
+            background-color: var(--input-active);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
+        }
+
+        /* --- Animation Phase 1: Submitting --- */
+        .card.submitting .otp-input {
+            color: transparent;
+            pointer-events: none;
+        }
+
+        .card.submitting .blob {
+            border-radius: 50%;
+            height: 48px;
+            background-color: var(--accent);
+            box-shadow: none;
+            transition: all 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+
+        .card.submitting .blob:nth-child(1) { transform: translate(146px, 8px); }
+        .card.submitting .blob:nth-child(2) { transform: translate(87px, 8px); }
+        .card.submitting .blob:nth-child(3) { transform: translate(29px, 8px); }
+        .card.submitting .blob:nth-child(4) { transform: translate(-29px, 8px); }
+        .card.submitting .blob:nth-child(5) { transform: translate(-87px, 8px); }
+        .card.submitting .blob:nth-child(6) { transform: translate(-146px, 8px); }
+
+        /* --- Animation Phase 2: Processing Throb --- */
+        @keyframes liquid-throb {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .card.processing .blob-wrapper { 
+            animation: liquid-throb 1s ease-in-out infinite; 
+        }
+        
+        /* --- Animation Phase 3: Resolving --- */
+        .card.success .blob { background-color: var(--success); }
+        .card.error .blob { background-color: var(--error); }
+
+        /* Shared expand for both states */
+        .card.success .blob:nth-child(1), .card.error .blob:nth-child(1) { transform: translate(146px, 8px) scale(1.8); }
+        .card.success .blob:nth-child(2), .card.error .blob:nth-child(2) { transform: translate(87px, 8px) scale(1.8); }
+        .card.success .blob:nth-child(3), .card.error .blob:nth-child(3) { transform: translate(29px, 8px) scale(1.8); }
+        .card.success .blob:nth-child(4), .card.error .blob:nth-child(4) { transform: translate(-29px, 8px) scale(1.8); }
+        .card.success .blob:nth-child(5), .card.error .blob:nth-child(5) { transform: translate(-87px, 8px) scale(1.8); }
+        .card.success .blob:nth-child(6), .card.error .blob:nth-child(6) { transform: translate(-146px, 8px) scale(1.8); }
+
+        /* SVG Checkmark & Crossmark */
+        .icon-container {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100; 
+            width: 32px; height: 32px;
+            opacity: 0; pointer-events: none;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .card.success .icon-container.check,
+        .card.error .icon-container.cross {
+            opacity: 1;
+            transition: opacity 0.2s ease 0.1s;
+        }
+
+        .draw-path {
+            fill: none;
+            stroke: #ffffff; /* White icon on colored backgrounds */
+            stroke-width: 3.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+        }
+
+        .card.success .icon-container.check .draw-path,
+        .card.error .icon-container.cross .draw-path {
+            animation: draw-icon 0.5s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes draw-icon { to { stroke-dashoffset: 0; } }
+
+        /* Error Message Text */
+        .error-msg {
+            color: var(--error);
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 24px;
+            opacity: 0;
+            height: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card.error .error-msg {
+            opacity: 1;
+            height: auto;
+        }
+
+        /* --- Minimalist Dark Button --- */
+        .submit-btn {
+            background: var(--text-main);
+            color: #ffffff;
+            border: none; padding: 16px; border-radius: 16px;
+            font-size: 16px; font-weight: 600; width: 100%; 
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Hidden SVG Filter */
+        .svg-filter-hidden {
+            position: absolute; width: 0; height: 0; pointer-events: none;
+        }

@@ -1,0 +1,27 @@
+:root{
+    --bg: white;
+    --text: black;
+}
+
+body.dark {
+    --bg: black;
+    --text: white;
+}
+body {
+    background: var(--bg);
+    color:var(--text);
+    transition: 0.3s;
+    text-align: center;
+    padding-top: 100px;
+    font-family: sans-serif;
+}
+
+.button {
+    padding: 10px 20px;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}

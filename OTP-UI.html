@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP-UI</title>
+    <link rel="stylesheet" href="OTP-UI.css">
+</head>
+<body>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<div class="card" id="otpCard">
+        <h2>Enter Security Code</h2>
+        <p>Please enter the 6-digit code sent to your email. <br><span style="font-size: 12px; color: #94a3b8;"></span></p>
+        
+        <div class="interaction-area">
+            
+            <div class="liquid-layer">
+                <div class="blob-wrapper" id="blobs">
+                    <div class="blob"></div><div class="blob"></div><div class="blob"></div>
+                    <div class="blob"></div><div class="blob"></div><div class="blob"></div>
+                </div>
+            </div>
+
+            <div class="inputs-layer" id="inputs">
+                <input type="text" maxlength="1" class="otp-input" autofocus>
+                <input type="text" maxlength="1" class="otp-input">
+                <input type="text" maxlength="1" class="otp-input">
+                <input type="text" maxlength="1" class="otp-input">
+                <input type="text" maxlength="1" class="otp-input">
+                <input type="text" maxlength="1" class="otp-input">
+            </div>
+
+            <div class="icon-container check">
+                <svg viewBox="0 0 24 24">
+                    <path class="draw-path" d="M4 12.6111L8.92308 17.5L20 6.5"></path>
+                </svg>
+            </div>
+
+            <div class="icon-container cross">
+                <svg viewBox="0 0 24 24">
+                    <path class="draw-path" d="M18 6L6 18M6 6l12 12"></path>
+                </svg>
+            </div>
+
+        </div>
+
+        <div class="error-msg">Incorrect code. Please try again.</div>
+
+        <button class="submit-btn" id="submitBtn">Confirm Identity</button>
+    </div>
+
+    <svg class="svg-filter-hidden">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
+    
+    <script src="OTP-UI.js"></script>
+</body>
+</html>

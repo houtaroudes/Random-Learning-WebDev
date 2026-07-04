@@ -1,0 +1,40 @@
+body{
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b1b1b;
+}
+
+.box{
+    width: 120px;
+    height: 120px;
+    background-color: #38bdf8;
+    border-radius: 30%;
+    animation: rotate 4s infinite ease-in-out;
+    box-shadow: 0 0 40px #38bdf8;
+}
+
+@keyframes rotate{
+    0%{
+        transform: rotate(0deg) scale(1);
+        border-radius: 30%;
+    }
+    25%{
+        transform: rotate(90deg) scale(1.2);
+        border-radius: 50%;
+    }
+    50%{
+        transform: rotate(180deg) scale(0.9);
+        border-radius: 50%;
+    }
+    75%{
+        transform: rotate(270deg) scale(1.1);
+        border-radius: 30%;
+    }
+    100%{
+        transform: rotate(360deg) scale(1);
+        border-radius: 30%;
+    }
+}

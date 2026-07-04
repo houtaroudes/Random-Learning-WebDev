@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins' sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('');
+    background-size: cover;
+}
+
+.glass-btn{
+    position: absolute;
+    padding: 10px 15px;
+    border-radius: 20px;
+    color: white;
+    border: 1px solid #bbbbbb2a;
+    background: rgba(0, 0, 0, 0.048);
+    backdrop-filter: blur(12px);
+}
