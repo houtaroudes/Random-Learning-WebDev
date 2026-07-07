@@ -63,7 +63,7 @@ Exercises focused more on JavaScript logic than visuals.
 | `Testing.css`, `test.html` | Scratch files for quick testing |
 | `index.html`, `style.css`, `script.js` | Base scaffold files |
 
-### 🏆 Featured Project: Café POS System Prototype
+### 🏆 Featured Project: Café POS System Prototype (and I will add some more projects in the next update!)
 **`houtarou_pos.html`** — a single-file Point-of-Sale prototype for a café, built as part of my thesis exploration (*POS and Inventory Management System for Beanne's Café*). It includes:
 - A themed menu with categories and pricing (PHP currency)
 - A working cart with live totals and 12% VAT calculation
@@ -86,9 +86,6 @@ This is the most "complete" piece in the repo and represents where my smaller ex
 - `houtarou_pos.html` uses hardcoded demo login credentials for prototyping only.
 - Most exercises can be run by simply opening the `.html` file in a browser.
 
-## 🔮 Next steps
+## 🔮 Next step
 
-- [ ] Add a proper README-style comment header to each exercise file
-- [ ] Split `houtarou_pos.html` into separate CSS/JS files
-- [ ] Standardize file naming (remove spaces, use kebab-case)
 - [ ] Continue building out the POS/Inventory system as part of thesis work
