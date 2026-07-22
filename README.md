@@ -1,4 +1,4 @@
-# 🎮 Random Learning WebDev
+# [=>] Random Learning WebDev
 
 > A gamified retro pixel learning hub — interactive exercises, live previews, and code challenges. Learn web development by doing!
 
@@ -8,27 +8,27 @@
 
 ---
 
-## ✨ Features
+## [**] Features
 
-### 🎯 Interactive Exercise Catalog
+### [+] Interactive Exercise Catalog
 26 mini-projects covering **UI Components**, **Visual Effects**, **Logic & Data**, and more. Each exercise includes:
-- 📝 **Live Demo** — See it in action right in the browser
-- 📂 **View Source** — Study the code on GitHub
-- 🏷️ **Tag Filtering** — Filter by technology or category
+- [_] **Live Demo** — See it in action right in the browser
+- [/] **View Source** — Study the code on GitHub
+- [#] **Tag Filtering** — Filter by technology or category
 
-### 💻 Code Challenges
+### [<>] Code Challenges
 5 built-in coding challenges with an interactive playground:
-- ✏️ **Live Editor** — Edit code and see results instantly
-- 💡 **Show Solution** — Toggle solution view
-- 🔄 **Reset** — Start fresh anytime
-- 🎲 **Random from Library** — Get random exercises to practice
+- [-] **Live Editor** — Edit code and see results instantly
+- [!] **Show Solution** — Toggle solution view
+- [~] **Reset** — Start fresh anytime
+- [?] **Random from Library** — Get random exercises to practice
 
-### 🖥️ Live Demo Modal
+### [=] Live Demo Modal
 Click "Live Demo" on any exercise to open a full preview modal with the working component embedded right in the page.
 
 ---
 
-## 🚀 Tech Stack
+## [=>] Tech Stack
 
 | Technology | Purpose |
 |-----------|---------|
@@ -40,18 +40,18 @@ Click "Live Demo" on any exercise to open a full preview modal with the working 
 
 ---
 
-## 🎨 Design
+## [*] Design
 
 The site features a retro pixel-art theme with:
-- 🎆 Animated starfield background with twinkling stars
-- 🌧️ Colorful pixel rain particles
-- ⛰️ Parallax mountain layers
-- 🖥️ CRT scanline overlay
-- ✨ Glow and hover effects throughout
+- [**] Animated starfield background with twinkling stars
+- [..] Colorful pixel rain particles
+- [/\] Parallax mountain layers
+- [=] CRT scanline overlay
+- [**] Glow and hover effects throughout
 
 ---
 
-## 🛠️ Getting Started
+## [#] Getting Started
 
 ```bash
 # Clone the repo
@@ -70,13 +70,13 @@ npm run build
 
 ---
 
-## 🌐 Live Demo
+## [(O)] Live Demo
 
 Check out the live site: [random-learning-webdev-site.vercel.app](https://random-learning-webdev-site.vercel.app)
 
 ---
 
-## 📁 Project Structure
+## [/] Project Structure
 
 ```
 Random-Learning-WebDev/
@@ -95,7 +95,7 @@ The root directory also contains the original standalone exercise files (`.html`
 
 ---
 
-## 📊 Stats
+## [%] Stats
 
 - **Exercises:** 26
 - **Code Challenges:** 5
@@ -104,12 +104,12 @@ The root directory also contains the original standalone exercise files (`.html`
 
 ---
 
-## 👨‍💻 Author
+## [@] Author
 
 **HoutarouDes** — Learning web development one pixel at a time.
 
 ---
 
 <p align="center">
-  <sub>Built with ☕, 🎮, and ∞ curiosity</sub>
+  <sub>Built with [c], [=>], and [8] curiosity</sub>
 </p>
