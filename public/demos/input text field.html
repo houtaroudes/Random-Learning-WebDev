@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Input Field Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1a2e,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:480px}
+.demo-title{color:#fff;text-align:center;margin-bottom:8px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#a780ff;font-weight:600}
+.demo-sub{color:rgba(255,255,255,0.25);text-align:center;margin-bottom:32px;font-size:.9rem}
+.input-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:36px 28px;backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:28px}
+.input-group{position:relative}
+.ani-input{width:100%;padding:14px 0;font-size:1rem;color:#fff;background:transparent;border:none;outline:none;font-family:inherit;position:relative;z-index:1}
+.ani-input::placeholder{color:transparent}
+.ani-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.06);border-radius:1px;overflow:hidden}
+.ani-line::after{content:'';position:absolute;bottom:0;left:0;width:0;height:100%;background:linear-gradient(90deg,#a780ff,#6c63ff);border-radius:1px;transition:width .4s cubic-bezier(.16,1,.3,1)}
+.ani-input:focus ~ .ani-line::after{width:100%}
+.ani-label{position:absolute;left:0;top:14px;color:rgba(255,255,255,0.15);font-size:1rem;pointer-events:none;transition:all .25s cubic-bezier(.4,0,.2,1)}
+.ani-input:focus ~ .ani-label,
+.ani-input:not(:placeholder-shown) ~ .ani-label{top:-10px;font-size:.75rem;color:#a780ff}
+.ani-input:not(:placeholder-shown) ~ .ani-label{color:rgba(255,255,255,0.3)}
+.ani-input:focus:not(:placeholder-shown) ~ .ani-label{color:#a780ff}
+.input-icon{position:absolute;left:0;bottom:16px;font-size:1.1rem;opacity:0.15;transition:opacity .3s}
+.ani-input:focus ~ .input-icon{opacity:0.4}
+.submit-row{display:flex;gap:12px}
+.submit-row button{flex:1;padding:14px;border-radius:12px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-primary{background:#a780ff;border:none;color:#0d1117}
+.btn-primary:hover{background:#b991ff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(167,128,255,0.3)}
+.btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5)}
+.btn-secondary:hover{color:#fff;border-color:rgba(255,255,255,0.15)}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">✏️ <span>Input</span> Fields</h1>
+<p class="demo-sub">Animated underline effect on focus</p>
+<div class="input-card">
+<div class="input-group">
+<input class="ani-input" type="text" id="field1" placeholder=" " autofocus>
+<label class="ani-label" for="field1">Username</label>
+<span class="ani-line"></span>
+<span class="input-icon">👤</span>
+</div>
+<div class="input-group">
+<input class="ani-input" type="email" id="field2" placeholder=" ">
+<label class="ani-label" for="field2">Email Address</label>
+<span class="ani-line"></span>
+<span class="input-icon">📧</span>
+</div>
+<div class="input-group">
+<input class="ani-input" type="password" id="field3" placeholder=" ">
+<label class="ani-label" for="field3">Password</label>
+<span class="ani-line"></span>
+<span class="input-icon">🔒</span>
+</div>
+<div class="input-group">
+<textarea class="ani-input" id="field4" placeholder=" " style="resize:vertical;min-height:60px;padding:14px 0"></textarea>
+<label class="ani-label" for="field4">Bio</label>
+<span class="ani-line"></span>
+<span class="input-icon" style="bottom:auto;top:14px">📝</span>
+</div>
+<div class="submit-row">
+<button class="btn-primary">Submit →</button>
+<button class="btn-secondary">Clear</button>
+</div>
+</div>
+</div>
+<script>
+document.querySelector('.btn-secondary').addEventListener('click', () => {
+document.querySelectorAll('.ani-input').forEach(i => { i.value = ''; });
+});
+</script>
+</body>
+</html>

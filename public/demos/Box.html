@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Box Model Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1a2e,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:580px;text-align:center}
+.demo-title{color:#fff;margin-bottom:32px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#f59e0b;font-weight:600}
+.workspace{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:32px;backdrop-filter:blur(12px)}
+.visual-box-wrapper{display:flex;justify-content:center;margin-bottom:32px}
+.visual-box{margin:24px;border:20px solid #f59e0b33;padding:20px;background:#0d1117;display:inline-block}
+.visual-box .content-box{width:120px;height:80px;background:linear-gradient(135deg,#f59e0b,#fbbf24);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#0d1117}
+.controls{display:flex;flex-direction:column;gap:14px}
+.control-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.04)}
+.control-row .label{color:rgba(255,255,255,0.4);font-size:.85rem}
+.control-row .value{color:#f59e0b;font-weight:600;font-size:.9rem;min-width:40px;text-align:right}
+.control-row input[type="range"]{width:160px;accent-color:#f59e0b;cursor:pointer}
+.box-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.04)}
+.box-info .info-item{text-align:center;padding:12px 8px;background:rgba(255,255,255,0.02);border-radius:8px}
+.box-info .info-item .info-label{color:rgba(255,255,255,0.2);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em}
+.box-info .info-item .info-value{color:#fff;font-size:.9rem;font-weight:600;margin-top:2px}
+@media(max-width:480px){.control-row{flex-wrap:wrap;gap:8px}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">📦 <span>Box</span> Model</h1>
+<div class="workspace">
+<div class="visual-box-wrapper">
+<div class="visual-box" id="boxModel">
+<div class="content-box">Content</div>
+</div>
+</div>
+<div class="controls">
+<div class="control-row">
+<span class="label">Padding</span>
+<input type="range" id="paddingSlider" min="4" max="60" value="20">
+<span class="value" id="paddingValue">20px</span>
+</div>
+<div class="control-row">
+<span class="label">Border</span>
+<input type="range" id="borderSlider" min="2" max="40" value="20">
+<span class="value" id="borderValue">20px</span>
+</div>
+<div class="control-row">
+<span class="label">Margin</span>
+<input type="range" id="marginSlider" min="4" max="60" value="24">
+<span class="value" id="marginValue">24px</span>
+</div>
+</div>
+<div class="box-info">
+<div class="info-item"><div class="info-label">Content W</div><div class="info-value" id="contentWidth">120px</div></div>
+<div class="info-item"><div class="info-label">Content H</div><div class="info-value" id="contentHeight">80px</div></div>
+<div class="info-item"><div class="info-label">Total W</div><div class="info-value" id="totalWidth">200px</div></div>
+<div class="info-item"><div class="info-label">Total H</div><div class="info-value" id="totalHeight">160px</div></div>
+</div>
+</div>
+</div>
+<script>
+const box = document.getElementById('boxModel');
+const paddingSlider = document.getElementById('paddingSlider');
+const borderSlider = document.getElementById('borderSlider');
+const marginSlider = document.getElementById('marginSlider');
+const paddingValue = document.getElementById('paddingValue');
+const borderValue = document.getElementById('borderValue');
+const marginValue = document.getElementById('marginValue');
+function update() {
+const p = parseInt(paddingSlider.value);
+const b = parseInt(borderSlider.value);
+const m = parseInt(marginSlider.value);
+box.style.padding = p + 'px';
+box.style.borderWidth = b + 'px';
+box.style.margin = m + 'px';
+paddingValue.textContent = p + 'px';
+borderValue.textContent = b + 'px';
+marginValue.textContent = m + 'px';
+}
+paddingSlider.addEventListener('input', update);
+borderSlider.addEventListener('input', update);
+marginSlider.addEventListener('input', update);
+</script>
+</body>
+</html>

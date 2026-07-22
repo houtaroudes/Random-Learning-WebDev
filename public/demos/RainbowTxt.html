@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainbow Text Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0d1117;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
+.container{width:100%;max-width:700px;text-align:center}
+.demo-title{color:#fff;margin-bottom:48px;font-size:1.8rem;font-weight:300}
+.demo-title span{font-weight:600;background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#9b59b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.rainbow-text{font-size:clamp(2rem,6vw,4.5rem);font-weight:800;background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#9b59b6,#ff6b6b);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:rainbow 3s linear infinite;margin-bottom:16px}
+@keyframes rainbow{0%{background-position:0% center}100%{background-position:200% center}}
+.rainbow-text-2{font-size:clamp(1.5rem,4vw,3rem);font-weight:700;background:linear-gradient(135deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb,#a6c1ee,#fbc2eb,#ff9a9e);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shift 4s ease infinite;margin-bottom:48px}
+@keyframes shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.variants{display:flex;flex-direction:column;gap:16px}
+.variant{padding:20px 24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:14px}
+.variant .label{color:rgba(255,255,255,0.2);font-size:.75rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:.1em}
+.variant .text{font-size:1.3rem;font-weight:700}
+.v1{background:linear-gradient(90deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.v2{background:linear-gradient(45deg,#0abde3,#10ac84,#ff9f43,#ee5a24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:shift 3s ease infinite}
+.v3{background:conic-gradient(from 0deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3,#ff6b6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.v4{background:linear-gradient(90deg,#a29bfe 0%,#fd79a8 25%,#ffeaa7 50%,#55efc4 75%,#a29bfe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% auto;animation:rainbow 4s linear infinite}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">🌈 <span>Rainbow</span> Text</h1>
+<div class="rainbow-text">Animated Rainbow</div>
+<div class="rainbow-text-2">Colors in Motion</div>
+<div class="variants">
+<div class="variant"><div class="label">Linear Sweep</div><div class="text v1">This text cycles through vibrant colors</div></div>
+<div class="variant"><div class="label">Directional Shift</div><div class="text v2">Colors flow diagonally</div></div>
+<div class="variant"><div class="label">Conic Gradient</div><div class="text v3">A circular rainbow palette</div></div>
+<div class="variant"><div class="label">Multi-Color Wave</div><div class="text v4">Smooth color wave animation</div></div>
+</div>
+</div>
+</body>
+</html>

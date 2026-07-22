@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café POS System</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#f5f0eb;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.pos-wrapper{width:100%;max-width:900px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.08)}
+.pos-header{background:#2d1b69;color:#fff;padding:20px 28px;display:flex;justify-content:space-between;align-items:center}
+.pos-header h1{font-size:1.2rem;font-weight:700}
+.pos-header .order-no{font-size:.85rem;opacity:0.7}
+.pos-body{display:grid;grid-template-columns:1fr 340px;min-height:480px}
+.menu-panel{padding:24px;background:#fafafa;border-right:1px solid #eee}
+.menu-panel h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:16px}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.menu-item{padding:14px 12px;background:#fff;border:1px solid #eee;border-radius:12px;cursor:pointer;transition:all .2s;text-align:center}
+.menu-item:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.04);border-color:#ddd}
+.menu-item .item-icon{font-size:1.5rem;margin-bottom:4px;display:block}
+.menu-item .item-name{font-size:.82rem;font-weight:600;color:#333;margin-bottom:2px}
+.menu-item .item-price{font-size:.75rem;color:#888}
+.cart-panel{display:flex;flex-direction:column}
+.cart-header{padding:24px 20px 16px;border-bottom:1px solid #eee}
+.cart-header h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:#888}
+.cart-items{flex:1;overflow-y:auto;padding:12px 20px}
+.cart-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+.cart-item .ci-left{min-width:0;flex:1}
+.cart-item .ci-name{font-size:.85rem;font-weight:600;color:#333}
+.cart-item .ci-price{font-size:.75rem;color:#888;margin-top:2px}
+.cart-item .ci-qty{display:flex;align-items:center;gap:8px;margin:0 12px}
+.cart-item .ci-qty button{width:24px;height:24px;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cart-item .ci-qty button:hover{background:#2d1b69;color:#fff;border-color:#2d1b69}
+.cart-item .ci-qty span{font-size:.85rem;font-weight:600;min-width:16px;text-align:center}
+.cart-item .ci-total{font-size:.85rem;font-weight:600;color:#333;min-width:50px;text-align:right}
+.cart-item .ci-remove{background:none;border:none;color:#ccc;cursor:pointer;font-size:.9rem;padding:4px;margin-left:8px;transition:color .15s}
+.cart-item .ci-remove:hover{color:#ff6b6b}
+.cart-footer{padding:16px 20px;border-top:1px solid #eee}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;font-size:.85rem;color:#666}
+.cart-total-row.total{font-size:1.1rem;font-weight:700;color:#333;margin-top:8px;padding-top:8px;border-top:1px solid #eee}
+.checkout-btn{width:100%;margin-top:12px;padding:14px;background:#2d1b69;color:#fff;border:none;border-radius:12px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+.checkout-btn:hover{background:#3d2979;transform:translateY(-1px);box-shadow:0 4px 16px rgba(45,27,105,0.2)}
+.checkout-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none!important}
+.empty-cart{padding:40px 20px;text-align:center;color:#ccc;font-size:.9rem}
+@media(max-width:640px){.pos-body{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="pos-wrapper">
+<div class="pos-header">
+<h1>☕ Café POS</h1>
+<span class="order-no">#ORD-2026</span>
+</div>
+<div class="pos-body">
+<div class="menu-panel">
+<h2>🥐 Menu Items</h2>
+<div class="menu-grid" id="menuGrid">
+<div class="menu-item" data-name="Cafè Latte" data-price="4.50" data-icon="☕"><span class="item-icon">☕</span><div class="item-name">Cafè Latte</div><div class="item-price">$4.50</div></div>
+<div class="menu-item" data-name="Cappuccino" data-price="4.00" data-icon="🫗"><span class="item-icon">🫗</span><div class="item-name">Cappuccino</div><div class="item-price">$4.00</div></div>
+<div class="menu-item" data-name="Espresso" data-price="3.00" data-icon="⚡"><span class="item-icon">⚡</span><div class="item-name">Espresso</div><div class="item-price">$3.00</div></div>
+<div class="menu-item" data-name="Mocha" data-price="5.00" data-icon="🍫"><span class="item-icon">🍫</span><div class="item-name">Mocha</div><div class="item-price">$5.00</div></div>
+<div class="menu-item" data-name="Croissant" data-price="3.50" data-icon="🥐"><span class="item-icon">🥐</span><div class="item-name">Croissant</div><div class="item-price">$3.50</div></div>
+<div class="menu-item" data-name="Blueberry Muffin" data-price="3.00" data-icon="🧁"><span class="item-icon">🧁</span><div class="item-name">Blueberry Muffin</div><div class="item-price">$3.00</div></div>
+<div class="menu-item" data-name="Sandwich" data-price="6.50" data-icon="🥪"><span class="item-icon">🥪</span><div class="item-name">Sandwich</div><div class="item-price">$6.50</div></div>
+<div class="menu-item" data-name="Green Tea" data-price="3.50" data-icon="🍵"><span class="item-icon">🍵</span><div class="item-name">Green Tea</div><div class="item-price">$3.50</div></div>
+</div>
+</div>
+<div class="cart-panel">
+<div class="cart-header"><h2>🧾 Order</h2></div>
+<div class="cart-items" id="cartItems"><div class="empty-cart">Your cart is empty<br>Tap items to add</div></div>
+<div class="cart-footer">
+<div class="cart-total-row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+<div class="cart-total-row"><span>VAT (10%)</span><span id="vat">$0.00</span></div>
+<div class="cart-total-row total"><span>Total</span><span id="total">$0.00</span></div>
+<button class="checkout-btn" id="checkoutBtn" disabled>Place Order</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+const cart = {};
+const menuGrid = document.getElementById('menuGrid');
+const cartItems = document.getElementById('cartItems');
+const subtotalEl = document.getElementById('subtotal');
+const vatEl = document.getElementById('vat');
+const totalEl = document.getElementById('total');
+const checkoutBtn = document.getElementById('checkoutBtn');
+menuGrid.addEventListener('click', (e) => {
+const item = e.target.closest('.menu-item');
+if (!item) return;
+const name = item.dataset.name;
+const price = parseFloat(item.dataset.price);
+if (cart[name]) {
+cart[name].qty++;
+} else {
+cart[name] = { name, price, icon: item.dataset.icon, qty: 1 };
+}
+renderCart();
+});
+function renderCart() {
+const items = Object.values(cart);
+if (items.length === 0) {
+cartItems.innerHTML = '<div class="empty-cart">Your cart is empty<br>Tap items to add</div>';
+checkoutBtn.disabled = true;
+updateTotals(0);
+return;
+}
+checkoutBtn.disabled = false;
+let subtotal = 0;
+cartItems.innerHTML = items.map((item, idx) => {
+const total = item.price * item.qty;
+subtotal += total;
+return `<div class="cart-item">
+<div class="ci-left">
+<div class="ci-name">${item.icon} ${item.name}</div>
+<div class="ci-price">$${item.price.toFixed(2)} each</div>
+</div>
+<div class="ci-qty">
+<button onclick="updateQty('${item.name}', -1)">−</button>
+<span>${item.qty}</span>
+<button onclick="updateQty('${item.name}', 1)">+</button>
+</div>
+<span class="ci-total">$${total.toFixed(2)}</span>
+<button class="ci-remove" onclick="removeItem('${item.name}')">✕</button>
+</div>`;
+}).join('');
+updateTotals(subtotal);
+}
+function updateQty(name, delta) {
+if (!cart[name]) return;
+cart[name].qty += delta;
+if (cart[name].qty <= 0) delete cart[name];
+renderCart();
+}
+function removeItem(name) {
+delete cart[name];
+renderCart();
+}
+function updateTotals(subtotal) {
+const vat = subtotal * 0.10;
+const total = subtotal + vat;
+subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+vatEl.textContent = `$${vat.toFixed(2)}`;
+totalEl.textContent = `$${total.toFixed(2)}`;
+}
+checkoutBtn.addEventListener('click', () => {
+if (Object.keys(cart).length === 0) return;
+const items = Object.values(cart);
+const total = items.reduce((sum, item) => sum + item.price * item.qty, 0) * 1.10;
+alert(`🧾 Receipt\n\nItems: ${items.reduce((s,i) => s + i.qty, 0)}\nTotal: $${total.toFixed(2)}\nVAT: $${(total * 0.10 / 1.10).toFixed(2)}\n\nThank you for your order! ☕`);
+for (const key in cart) delete cart[key];
+renderCart();
+});
+</script>
+</body>
+</html>

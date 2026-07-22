@@ -1,91 +1,115 @@
-# Random Learning WebDev 🌱
+# 🎮 Random Learning WebDev
 
-My personal sandbox for learning web development — a collection of small HTML/CSS/JS exercises I've built while studying IT/Computer Science, plus one bigger prototype tied to my thesis work.
+> A gamified retro pixel learning hub — interactive exercises, live previews, and code challenges. Learn web development by doing!
 
-This isn't a polished product repo. It's closer to a lab notebook: each file (or small file group) is one concept I wanted to understand by actually building it, rather than just reading about it.
+![Vercel](https://img.shields.io/badge/deployed%20on-Vercel-000?logo=vercel)
+![React](https://img.shields.io/badge/React-18-61dafb?logo=react)
+![Vite](https://img.shields.io/badge/Vite-6-646cff?logo=vite)
 
-## 🎯 Why this repo exists
+---
 
-As a student, I wanted a place to:
-- Practice core HTML/CSS/JS concepts outside of class assignments
-- Try out UI patterns and effects I see online and figure out how they work
-- Keep a visible record of how my skills have progressed over time
-- Build toward bigger, more "real" projects (like the café POS prototype below)
+## ✨ Features
 
-## 🗂️ What's in here
+### 🎯 Interactive Exercise Catalog
+26 mini-projects covering **UI Components**, **Visual Effects**, **Logic & Data**, and more. Each exercise includes:
+- 📝 **Live Demo** — See it in action right in the browser
+- 📂 **View Source** — Study the code on GitHub
+- 🏷️ **Tag Filtering** — Filter by technology or category
 
-### UI Components & Interactions
-Small, focused exercises on common interface patterns.
+### 💻 Code Challenges
+5 built-in coding challenges with an interactive playground:
+- ✏️ **Live Editor** — Edit code and see results instantly
+- 💡 **Show Solution** — Toggle solution view
+- 🔄 **Reset** — Start fresh anytime
+- 🎲 **Random from Library** — Get random exercises to practice
 
-| Exercise | Files | Concept practiced |
-|---|---|---|
-| Dropdown Menu | `Dropdown Menu.html`, `Dropdown.css` | Toggleable menus |
-| AutoSuggest | `AutoSuggest.html/css` | Input suggestions/autocomplete |
-| Floating Input Animation | `Floating Input Ani.html/css` | Animated form labels |
-| OTP UI | `OTP-UI.html/css/js` | One-time-password style input boxes |
-| Upload System | `Upload System.html/css`, `Upload system.js` | File upload UI/logic |
-| Password Generator | `Password Generator.html/css` | Randomized string generation |
-| Smooth Animated NavBar | `Smooth Ani NavBar.html/css` | Navigation bar animation |
-| Nav (TSX) | `Nav.tsx` | Navigation component in a React/TS context |
+### 🖥️ Live Demo Modal
+Click "Live Demo" on any exercise to open a full preview modal with the working component embedded right in the page.
 
-### Visual Effects & Animation
-Exercises focused on CSS/JS-driven visuals.
+---
 
-| Exercise | Files | Concept practiced |
-|---|---|---|
-| Animated Background | `Animated BG.html/css` | Background animation |
-| Animated Progress Bar | `Animated Progress bar.html/css` | Progress indicators |
-| Gradient Background | `Gradrient Background.html/css` | CSS gradients |
-| GlassMorphism | `GlassMorphism.html/css/js` | Frosted-glass UI style |
-| GlowCard | `GlowCard.html/css` | Glow/hover lighting effects |
-| Hover Cards / Hover | `Hover Cards.html/css`, `Hover.html/css` | Hover interactions |
-| RainbowTxt | `RainbowTxt.html/css` | Animated text color effects |
-| Dynamic Text | `DynamicText.html/css` | Text animation |
-| GSAP Cursor Trail | `GSAP cursor trail.html/css/js` | Using the GSAP animation library |
-| Overlapping Scroll | `OverlappingScroll.css`, `OverlappingScroll copy.html` | Scroll-based layout effects |
-| Box | `Box.html/css` | Layout/box model practice |
+## 🚀 Tech Stack
 
-### Logic & Data Handling
-Exercises focused more on JavaScript logic than visuals.
+| Technology | Purpose |
+|-----------|---------|
+| **React 18** | UI Framework |
+| **Vite 6** | Build tool & dev server |
+| **CSS** | Styling with custom properties |
+| **Canvas API** | Animated pixel backgrounds |
+| **IntersectionObserver** | Scroll reveal animations |
 
-| Exercise | Files | Concept practiced |
-|---|---|---|
-| Dark Mode + Local Storage | `DarkMode and Local Storage.html/css/js` | Theme toggling + persisting state with `localStorage` |
-| Color | `Color.html/css/js` | Color manipulation/generation |
-| QR Code | `QR Code.html/js` | Generating QR codes with JS |
-| Realtime | `Realtime.html/css/js` | Real-time updating UI |
+---
 
-### Misc / Reference
-| File | Purpose |
-|---|---|
-| `Html shortcuts.html` | Personal reference notes for HTML shortcuts |
-| `Test Exercises 2hrs random codes.html` | Timed practice session |
-| `Testing.css`, `test.html` | Scratch files for quick testing |
-| `index.html`, `style.css`, `script.js` | Base scaffold files |
+## 🎨 Design
 
-### 🏆 Featured Project: Café POS System Prototype (and I will add some more projects in the next update!)
-**`houtarou_pos.html`** — a single-file Point-of-Sale prototype for a café, built as part of my thesis exploration (*POS and Inventory Management System for Beanne's Café*). It includes:
-- A themed menu with categories and pricing (PHP currency)
-- A working cart with live totals and 12% VAT calculation
-- Receipt generation
-- A custom warm, minimalist café aesthetic (Playfair Display + Inter fonts)
-- A login screen (demo credentials only — **not** production-ready)
+The site features a retro pixel-art theme with:
+- 🎆 Animated starfield background with twinkling stars
+- 🌧️ Colorful pixel rain particles
+- ⛰️ Parallax mountain layers
+- 🖥️ CRT scanline overlay
+- ✨ Glow and hover effects throughout
 
-This is the most "complete" piece in the repo and represents where my smaller exercises above are heading: real, usable interfaces rather than isolated demos.
+---
 
-## 📈 Progress notes
+## 🛠️ Getting Started
 
-- Started with basic HTML/CSS layout and hover effects
-- Moved into JavaScript-driven interactivity (local storage, real-time updates, file uploads)
-- Started incorporating external libraries (GSAP) and typed component syntax (TSX)
-- Currently applying these skills toward a larger, thesis-related prototype (café POS system)
+```bash
+# Clone the repo
+git clone https://github.com/houtaroudes/Random-Learning-WebDev.git
+cd Random-Learning-WebDev
 
-## ⚠️ Notes
+# Install dependencies
+npm install
 
-- These are learning exercises, not production code — expect hardcoded demo values, inline styles/scripts, and no build tooling.
-- `houtarou_pos.html` uses hardcoded demo login credentials for prototyping only.
-- Most exercises can be run by simply opening the `.html` file in a browser.
+# Start dev server
+npm run dev
 
-## 🔮 Next step
+# Build for production
+npm run build
+```
 
-- [ ] Continue building out the POS/Inventory system as part of thesis work
+---
+
+## 🌐 Live Demo
+
+Check out the live site: [random-learning-webdev-site.vercel.app](https://random-learning-webdev-site.vercel.app)
+
+---
+
+## 📁 Project Structure
+
+```
+Random-Learning-WebDev/
+├── public/
+│   └── demos/          # Standalone HTML exercise files (live demos)
+├── src/
+│   ├── App.jsx         # Main React component
+│   └── main.jsx        # Entry point
+├── index.html          # HTML template
+├── package.json        # Dependencies
+├── vite.config.js      # Vite configuration
+└── vercel.json         # Vercel deployment config
+```
+
+The root directory also contains the original standalone exercise files (`.html`, `.css`, `.js`) for individual study.
+
+---
+
+## 📊 Stats
+
+- **Exercises:** 26
+- **Code Challenges:** 5
+- **Technologies:** HTML5, CSS3, JavaScript, React, TypeScript, GSAP, LocalStorage, PHP
+- **Features:** Dark Mode, QR Generator, Password Generator, OTP UI, POS System, and more!
+
+---
+
+## 👨‍💻 Author
+
+**HoutarouDes** — Learning web development one pixel at a time.
+
+---
+
+<p align="center">
+  <sub>Built with ☕, 🎮, and ∞ curiosity</sub>
+</p>

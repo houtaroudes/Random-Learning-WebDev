@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoSuggest Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:480px}
+.demo-title{color:#fff;text-align:center;margin-bottom:32px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#e94560;font-weight:600}
+.search-box{position:relative}
+.input-wrapper{background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.1);border-radius:16px;display:flex;align-items:center;padding:0 16px;transition:all .3s}
+.input-wrapper:focus-within{border-color:#e94560;box-shadow:0 0 20px rgba(233,69,96,0.15)}
+.input-wrapper .icon{color:rgba(255,255,255,0.3);font-size:1.2rem;margin-right:12px}
+.input-wrapper input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:1rem;padding:16px 0;font-family:inherit}
+.input-wrapper input::placeholder{color:rgba(255,255,255,0.25)}
+.input-wrapper .clear-btn{background:none;border:none;color:rgba(255,255,255,0.25);cursor:pointer;font-size:1.1rem;display:none;padding:4px;border-radius:50%;transition:all .2s}
+.input-wrapper .clear-btn.visible{display:flex}
+.input-wrapper .clear-btn:hover{color:#fff;background:rgba(255,255,255,0.1)}
+.suggestions{position:absolute;top:calc(100% + 6px);left:0;right:0;background:rgba(22,33,62,0.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:6px;display:none;box-shadow:0 16px 48px rgba(0,0,0,0.4);max-height:280px;overflow-y:auto}
+.suggestions.visible{display:block}
+.suggestion-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;cursor:pointer;transition:all .15s;color:rgba(255,255,255,0.7);font-size:.9rem}
+.suggestion-item:hover,.suggestion-item.highlighted{background:rgba(233,69,96,0.12);color:#fff;padding-left:18px}
+.suggestion-item .emoji{font-size:1.1rem}
+.suggestion-item .s-category{font-size:.7rem;color:rgba(255,255,255,0.3);margin-left:auto;text-transform:uppercase;letter-spacing:.05em}
+.suggestions .no-results{padding:20px;text-align:center;color:rgba(255,255,255,0.3);font-size:.9rem}
+.result-display{margin-top:24px;padding:16px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06);display:none}
+.result-display.visible{display:block}
+.result-display .r-label{color:rgba(255,255,255,0.3);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.result-display .r-value{color:#fff;font-size:1.1rem;font-weight:600}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">🔍 <span>Auto</span>Suggest</h1>
+<div class="search-box">
+<div class="input-wrapper">
+<span class="icon">🔎</span>
+<input type="text" id="searchInput" placeholder="Search languages, frameworks..." autocomplete="off">
+<button class="clear-btn" id="clearBtn">✕</button>
+</div>
+<div class="suggestions" id="suggestions"></div>
+</div>
+<div class="result-display" id="result">
+<div class="r-label">Selected</div>
+<div class="r-value" id="resultValue">—</div>
+</div>
+</div>
+<script>
+const data = [
+{emoji:"🌐",name:"React",category:"Framework"},
+{emoji:"🅰️",name:"Angular",category:"Framework"},
+{emoji:"⚡",name:"Vue.js",category:"Framework"},
+{emoji:"🟢",name:"Node.js",category:"Runtime"},
+{emoji:"🦀",name:"Rust",category:"Language"},
+{emoji:"🐍",name:"Python",category:"Language"},
+{emoji:"☕",name:"Java",category:"Language"},
+{emoji:"💎",name:"Ruby",category:"Language"},
+{emoji:"🔷",name:"TypeScript",category:"Language"},
+{emoji:"🟨",name:"JavaScript",category:"Language"},
+{emoji:"🎨",name:"Tailwind CSS",category:"Framework"},
+{emoji:"📱",name:"Flutter",category:"Framework"},
+{emoji:"🍎",name:"Swift",category:"Language"},
+{emoji:"🤖",name:"TensorFlow",category:"Library"},
+{emoji:"🗄️",name:"PostgreSQL",category:"Database"},
+{emoji:"🍃",name:"MongoDB",category:"Database"},
+{emoji:"🔥",name:"Firebase",category:"Platform"},
+{emoji:"☁️",name:"AWS",category:"Cloud"},
+{emoji:"📦",name:"Docker",category:"Tool"},
+{emoji:"🧊",name:"Next.js",category:"Framework"},
+];
+const input = document.getElementById('searchInput');
+const suggestions = document.getElementById('suggestions');
+const clearBtn = document.getElementById('clearBtn');
+const result = document.getElementById('result');
+const resultValue = document.getElementById('resultValue');
+let highlightedIdx = -1;
+function filterItems(query) {
+const q = query.toLowerCase().trim();
+if (!q) return [];
+return data.filter(item =>
+item.name.toLowerCase().includes(q) ||
+item.category.toLowerCase().includes(q)
+).slice(0, 7);
+}
+function renderSuggestions(items) {
+if (items.length === 0) {
+suggestions.innerHTML = '<div class="no-results">✨ No matches found</div>';
+suggestions.classList.add('visible');
+return;
+}
+suggestions.innerHTML = items.map((item, i) =>
+`<div class="suggestion-item ${i === highlightedIdx ? 'highlighted' : ''}" data-index="${i}">
+<span class="emoji">${item.emoji}</span>
+<span>${item.name}</span>
+<span class="s-category">${item.category}</span>
+</div>`
+).join('');
+suggestions.classList.add('visible');
+}
+function selectItem(item) {
+input.value = item.name;
+result.classList.add('visible');
+resultValue.textContent = `${item.emoji} ${item.name} — ${item.category}`;
+suggestions.classList.remove('visible');
+clearBtn.classList.add('visible');
+highlightedIdx = -1;
+}
+input.addEventListener('input', () => {
+const items = filterItems(input.value);
+highlightedIdx = -1;
+if (input.value.trim()) {
+renderSuggestions(items);
+clearBtn.classList.add('visible');
+} else {
+suggestions.classList.remove('visible');
+clearBtn.classList.remove('visible');
+result.classList.remove('visible');
+}
+});
+input.addEventListener('keydown', (e) => {
+const items = filterItems(input.value);
+if (!suggestions.classList.contains('visible') || items.length === 0) return;
+if (e.key === 'ArrowDown') { e.preventDefault(); highlightedIdx = Math.min(highlightedIdx + 1, items.length - 1); renderSuggestions(items); }
+if (e.key === 'ArrowUp') { e.preventDefault(); highlightedIdx = Math.max(highlightedIdx - 1, -1); renderSuggestions(items); }
+if (e.key === 'Enter' && highlightedIdx >= 0) { e.preventDefault(); selectItem(items[highlightedIdx]); }
+if (e.key === 'Escape') { suggestions.classList.remove('visible'); input.blur(); }
+});
+suggestions.addEventListener('click', (e) => {
+const item = e.target.closest('.suggestion-item');
+if (!item) return;
+const idx = parseInt(item.dataset.index);
+const items = filterItems(input.value);
+if (items[idx]) selectItem(items[idx]);
+});
+clearBtn.addEventListener('click', () => {
+input.value = '';
+suggestions.classList.remove('visible');
+clearBtn.classList.remove('visible');
+result.classList.remove('visible');
+input.focus();
+});
+document.addEventListener('click', (e) => {
+if (!e.target.closest('.search-box')) suggestions.classList.remove('visible');
+});
+</script>
+</body>
+</html>

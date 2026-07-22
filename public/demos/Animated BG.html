@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Background Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;overflow:hidden;min-height:100vh}
+.bg{position:fixed;inset:0;z-index:0;animation:gradientShift 12s ease infinite;background:linear-gradient(-45deg,#ee7752,#e73c7e,#23a6d5,#23d5ab);background-size:400% 400%}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.overlay{position:fixed;inset:0;z-index:1;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,0.3) 100%)}
+.content{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.card{background:rgba(255,255,255,0.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:48px 40px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.15)}
+.card h1{color:#fff;font-size:2rem;margin-bottom:12px;text-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.card p{color:rgba(255,255,255,0.7);font-size:1.05rem;line-height:1.7;margin-bottom:24px}
+.color-dots{display:flex;gap:12px;justify-content:center;margin-bottom:24px}
+.color-dot{width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);animation:pulse 2s ease infinite}
+.color-dot:nth-child(1){background:#ee7752;animation-delay:0s}
+.color-dot:nth-child(2){background:#e73c7e;animation-delay:0.4s}
+.color-dot:nth-child(3){background:#23a6d5;animation-delay:0.8s}
+.color-dot:nth-child(4){background:#23d5ab;animation-delay:1.2s}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.tagline{color:rgba(255,255,255,0.3);font-size:.85rem;letter-spacing:.15em;text-transform:uppercase}
+.floating-shapes{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.floating-shapes span{position:absolute;display:block;width:20px;height:20px;background:rgba(255,255,255,0.06);border-radius:50%;animation:float linear infinite;bottom:-20px}
+.floating-shapes span:nth-child(1){left:10%;width:40px;height:40px;animation-duration:15s;animation-delay:0s}
+.floating-shapes span:nth-child(2){left:25%;width:60px;height:60px;animation-duration:18s;animation-delay:2s}
+.floating-shapes span:nth-child(3){left:45%;width:30px;height:30px;animation-duration:12s;animation-delay:4s}
+.floating-shapes span:nth-child(4){left:60%;width:50px;height:50px;animation-duration:20s;animation-delay:1s}
+.floating-shapes span:nth-child(5){left:75%;width:35px;height:35px;animation-duration:14s;animation-delay:3s}
+.floating-shapes span:nth-child(6){left:90%;width:45px;height:45px;animation-duration:16s;animation-delay:5s}
+@keyframes float{0%{transform:translateY(0) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(-110vh) rotate(720deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="overlay"></div>
+<div class="floating-shapes">
+<span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+<div class="content">
+<div class="card">
+<div class="color-dots"><div class="color-dot"></div><div class="color-dot"></div><div class="color-dot"></div><div class="color-dot"></div></div>
+<h1>Animated Gradient</h1>
+<p>A mesmerizing animated gradient background using CSS keyframes. The colors shift smoothly through a range of hues, creating a dynamic and visually engaging backdrop.</p>
+<div class="tagline">✦ CSS Keyframes ✦</div>
+</div>
+</div>
+</body>
+</html>

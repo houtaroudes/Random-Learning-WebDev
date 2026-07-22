@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gradient Background Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:#0d1117}
+.container{width:100%;max-width:640px}
+.demo-title{color:#fff;text-align:center;margin-bottom:32px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#f59e0b;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gradient-card{border-radius:16px;padding:32px 20px;text-align:center;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .3s,box-shadow .3s;cursor:pointer}
+.gradient-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+.gradient-card .label{color:rgba(255,255,255,0.7);font-size:.85rem;font-weight:500;text-shadow:0 1px 4px rgba(0,0,0,0.3)}
+.gradient-card .type{color:rgba(255,255,255,0.35);font-size:.7rem;margin-top:4px;font-family:monospace}
+.g1{background:linear-gradient(135deg,#667eea,#764ba2)}
+.g2{background:linear-gradient(135deg,#f093fb,#f5576c)}
+.g3{background:radial-gradient(circle at 20% 30%,#4facfe,#00f2fe)}
+.g4{background:radial-gradient(circle at 80% 20%,#43e97b,#38f9d7)}
+.g5{background:conic-gradient(from 45deg,#ff6b6b,#ffa94d,#ffd43b,#69db7c,#4dabf7,#9775fa,#ff6b6b)}
+.g6{background:linear-gradient(135deg,#a8edea,#fed6e3)}
+.info-box{margin-top:24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:20px 24px}
+.info-box h3{color:rgba(255,255,255,0.7);font-size:.9rem;margin-bottom:8px}
+.info-box p{color:rgba(255,255,255,0.3);font-size:.85rem;line-height:1.6}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">🎨 <span>Gradient</span> Playground</h1>
+<div class="grid">
+<div class="gradient-card g1"><div class="label">Purple Haze</div><div class="type">linear-gradient</div></div>
+<div class="gradient-card g2"><div class="label">Sunset Pink</div><div class="type">linear-gradient</div></div>
+<div class="gradient-card g3"><div class="label">Ocean Blue</div><div class="type">radial-gradient</div></div>
+<div class="gradient-card g4"><div class="label">Green Rush</div><div class="type">radial-gradient</div></div>
+<div class="gradient-card g5"><div class="label">Color Wheel</div><div class="type">conic-gradient</div></div>
+<div class="gradient-card g6"><div class="label">Soft Bloom</div><div class="type">linear-gradient</div></div>
+</div>
+<div class="info-box">
+<h3>💡 CSS Gradient Types</h3>
+<p><strong>linear-gradient</strong> — colors transition along a straight line.<br>
+<strong>radial-gradient</strong> — colors radiate from a central point.<br>
+<strong>conic-gradient</strong> — colors transition around a center point (like a color wheel).</p>
+</div>
+</div>
+</body>
+</html>

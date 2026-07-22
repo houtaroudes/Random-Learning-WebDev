@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glow Card Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0d1117;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:520px;text-align:center}
+.demo-title{color:#fff;margin-bottom:32px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#58a6ff;font-weight:600}
+.cards{display:flex;flex-direction:column;gap:20px}
+.glow-card{position:relative;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:32px 24px;text-align:center;overflow:hidden;transition:all .3s;cursor:default}
+.glow-card::before{content:'';position:absolute;top:var(--mouse-y,50%);left:var(--mouse-x,50%);transform:translate(-50%,-50%);width:300px;height:300px;background:radial-gradient(circle,var(--glow-color,rgba(88,166,255,0.06)),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.glow-card:hover::before{opacity:1}
+.glow-card:hover{transform:translateY(-4px);border-color:var(--glow-color,rgba(88,166,255,0.2));box-shadow:0 0 30px rgba(88,166,255,0.06)}
+.glow-card .emoji{font-size:2.5rem;margin-bottom:12px;display:block;position:relative;z-index:1}
+.glow-card h3{color:#fff;font-size:1.2rem;margin-bottom:8px;position:relative;z-index:1}
+.glow-card p{color:rgba(255,255,255,0.35);font-size:.85rem;line-height:1.6;position:relative;z-index:1}
+.card-blue{--glow-color:rgba(88,166,255,0.15)}
+.card-pink{--glow-color:rgba(255,63,156,0.15)}
+.card-green{--glow-color:rgba(74,222,128,0.15)}
+.card-gold{--glow-color:rgba(255,209,102,0.15)}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">✨ <span>Glow</span> Cards</h1>
+<div class="cards">
+<div class="glow-card card-blue" onmousemove="this.style.setProperty('--mouse-x',event.offsetX+'px');this.style.setProperty('--mouse-y',event.offsetY+'px')">
+<span class="emoji">🚀</span>
+<h3>Blazing Fast</h3>
+<p>Optimized performance with a snappy user experience that keeps your workflow smooth.</p>
+</div>
+<div class="glow-card card-pink" onmousemove="this.style.setProperty('--mouse-x',event.offsetX+'px');this.style.setProperty('--mouse-y',event.offsetY+'px')">
+<span class="emoji">💖</span>
+<h3>Beautiful Design</h3>
+<p>Crafted with care — every pixel has a purpose in this thoughtfully designed interface.</p>
+</div>
+<div class="glow-card card-green" onmousemove="this.style.setProperty('--mouse-x',event.offsetX+'px');this.style.setProperty('--mouse-y',event.offsetY+'px')">
+<span class="emoji">🌱</span>
+<h3>Sustainable Code</h3>
+<p>Clean, maintainable architecture that scales with your needs over time.</p>
+</div>
+<div class="glow-card card-gold" onmousemove="this.style.setProperty('--mouse-x',event.offsetX+'px');this.style.setProperty('--mouse-y',event.offsetY+'px')">
+<span class="emoji">⭐</span>
+<h3>Premium Quality</h3>
+<p>Top-tier components and attention to detail that sets your project apart.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

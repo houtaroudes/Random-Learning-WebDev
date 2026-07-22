@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Realtime UI Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1a2e,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:520px;text-align:center}
+.demo-title{color:#fff;margin-bottom:32px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#4ade80;font-weight:600}
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:32px;backdrop-filter:blur(12px)}
+.clock-display{font-size:3.5rem;font-weight:700;font-family:monospace;color:#4ade80;text-shadow:0 0 20px rgba(74,222,128,0.15);margin-bottom:24px;letter-spacing:.04em;line-height:1.2}
+.date-display{color:rgba(255,255,255,0.3);font-size:.9rem;margin-bottom:28px;font-family:monospace}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.metric{padding:16px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.04);text-align:center}
+.metric .m-value{font-size:1.8rem;font-weight:700;font-family:monospace}
+.metric .m-label{color:rgba(255,255,255,0.2);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
+.metric:nth-child(1) .m-value{color:#ff6b6b}
+.metric:nth-child(2) .m-value{color:#58a6ff}
+.metric:nth-child(3) .m-value{color:#f59e0b}
+.metric:nth-child(4) .m-value{color:#a780ff}
+.activity-feed{padding:16px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.04);max-height:120px;overflow:hidden}
+.activity-feed .feed-title{color:rgba(255,255,255,0.15);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;text-align:left}
+.feed-item{text-align:left;padding:6px 0;font-size:.8rem;color:rgba(255,255,255,0.3);animation:fadeIn .3s ease;font-family:monospace}
+.feed-item .time{color:rgba(255,255,255,0.15);margin-right:8px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">⚡ <span>Realtime</span> UI</h1>
+<div class="card">
+<div class="clock-display" id="clock">00:00:00</div>
+<div class="date-display" id="dateDisplay">Loading...</div>
+<div class="metrics">
+<div class="metric"><div class="m-value" id="cpu">0</div><div class="m-label">CPU Load</div></div>
+<div class="metric"><div class="m-value" id="mem">0</div><div class="m-label">Memory</div></div>
+<div class="metric"><div class="m-value" id="net">0</div><div class="m-label">Net Req</div></div>
+<div class="metric"><div class="m-value" id="uptime">0s</div><div class="m-label">Uptime</div></div>
+</div>
+<div class="activity-feed">
+<div class="feed-title">📋 Live Feed</div>
+<div id="feed"></div>
+</div>
+</div>
+</div>
+<script>
+const clock = document.getElementById('clock');
+const dateDisplay = document.getElementById('dateDisplay');
+const cpu = document.getElementById('cpu');
+const mem = document.getElementById('mem');
+const net = document.getElementById('net');
+const uptime = document.getElementById('uptime');
+const feed = document.getElementById('feed');
+const startTime = Date.now();
+const actions = ['fetch','render','update','sync','log','emit','process','queue','cache','parse'];
+const sources = ['api','db','ui','ws','auth','cdn'];
+let netCount = 0;
+function pad(n) { return String(n).padStart(2, '0'); }
+function updateClock() {
+const now = new Date();
+clock.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+dateDisplay.textContent = now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+}
+function updateMetrics() {
+cpu.textContent = Math.floor(Math.random() * 40 + 10) + '%';
+mem.textContent = Math.floor(Math.random() * 30 + 40) + '%';
+netCount += Math.floor(Math.random() * 3);
+net.textContent = netCount;
+const elapsed = Math.floor((Date.now() - startTime) / 1000);
+const mins = Math.floor(elapsed / 60);
+const secs = elapsed % 60;
+uptime.textContent = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+}
+function addFeed() {
+const action = actions[Math.floor(Math.random() * actions.length)];
+const source = sources[Math.floor(Math.random() * sources.length)];
+const now = new Date();
+const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+const item = document.createElement('div');
+item.className = 'feed-item';
+item.innerHTML = `<span class="time">[${time}]</span>${source} → ${action}()`;
+feed.insertBefore(item, feed.firstChild);
+while (feed.children.length > 5) feed.removeChild(feed.lastChild);
+}
+updateClock();
+setInterval(updateClock, 1000);
+setInterval(updateMetrics, 1500);
+setInterval(addFeed, 2000);
+updateMetrics();
+for (let i = 0; i < 3; i++) setTimeout(addFeed, i * 300);
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTP Input Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1333,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:480px;text-align:center}
+.demo-title{color:#fff;margin-bottom:8px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#a780ff;font-weight:600}
+.demo-sub{color:rgba(255,255,255,0.3);font-size:.9rem;margin-bottom:32px}
+.otp-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:40px 32px;backdrop-filter:blur(12px)}
+.otp-icon{font-size:3rem;margin-bottom:16px}
+.otp-label{color:rgba(255,255,255,0.5);font-size:.85rem;margin-bottom:24px}
+.otp-inputs{display:flex;gap:10px;justify-content:center;margin-bottom:24px}
+.otp-input{width:52px;height:60px;text-align:center;font-size:1.5rem;font-weight:600;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;outline:none;transition:all .2s;font-family:inherit}
+.otp-input:focus{border-color:#a780ff;box-shadow:0 0 0 3px rgba(167,128,255,0.15);background:rgba(167,128,255,0.04);transform:translateY(-2px)}
+.otp-input.filled{border-color:rgba(167,128,255,0.3);background:rgba(167,128,255,0.06)}
+.verify-btn{width:100%;padding:14px;background:#a780ff;border:none;border-radius:12px;color:#0d1117;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;opacity:0.5}
+.verify-btn.active{opacity:1}
+.verify-btn.active:hover{background:#b991ff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(167,128,255,0.3)}
+.verify-result{margin-top:16px;padding:12px;border-radius:10px;font-size:.85rem;display:none}
+.verify-result.success{display:block;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);color:#4ade80}
+.verify-result.error{display:block;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);color:#ff6b6b}
+.resend{color:rgba(255,255,255,0.25);font-size:.8rem;margin-top:16px}
+.resend a{color:#a780ff;text-decoration:none;cursor:pointer}
+.resend a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">🔐 <span>OTP</span> Verification</h1>
+<p class="demo-sub">Enter the 6-digit code sent to your device</p>
+<div class="otp-card">
+<div class="otp-icon">✉️</div>
+<div class="otp-label">We've sent a code to ****@gmail.com</div>
+<div class="otp-inputs" id="otpContainer">
+<input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+<input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+<input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+<input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+<input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+<input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+</div>
+<button class="verify-btn" id="verifyBtn">Verify Code</button>
+<div class="verify-result" id="verifyResult"></div>
+<div class="resend">Didn't get it? <a id="resendLink">Resend code</a></div>
+</div>
+</div>
+<script>
+const inputs = document.querySelectorAll('.otp-input');
+const verifyBtn = document.getElementById('verifyBtn');
+const verifyResult = document.getElementById('verifyResult');
+const resendLink = document.getElementById('resendLink');
+function updateUI() {
+const values = Array.from(inputs).map(i => i.value);
+const filled = values.every(v => v !== '');
+inputs.forEach((inp, idx) => inp.classList.toggle('filled', inp.value !== ''));
+verifyBtn.classList.toggle('active', filled);
+}
+inputs.forEach((input, idx) => {
+input.addEventListener('input', () => {
+const val = input.value.replace(/[^0-9]/g, '');
+input.value = val.slice(0, 1);
+updateUI();
+if (val && idx < inputs.length - 1) inputs[idx + 1].focus();
+});
+input.addEventListener('keydown', (e) => {
+if (e.key === 'Backspace' && !input.value && idx > 0) {
+inputs[idx - 1].focus();
+inputs[idx - 1].value = '';
+updateUI();
+}
+if (e.key === 'ArrowLeft' && idx > 0) inputs[idx - 1].focus();
+if (e.key === 'ArrowRight' && idx < inputs.length - 1) inputs[idx + 1].focus();
+});
+input.addEventListener('focus', () => input.select());
+});
+function getCode() { return Array.from(inputs).map(i => i.value).join(''); }
+verifyBtn.addEventListener('click', () => {
+const code = getCode();
+if (code.length !== 6) return;
+if (code === '123456') {
+verifyResult.className = 'verify-result success';
+verifyResult.textContent = '✅ Verified successfully! Welcome back!';
+} else {
+verifyResult.className = 'verify-result error';
+verifyResult.textContent = '❌ Invalid code. Please try again.';
+}
+});
+resendLink.addEventListener('click', (e) => {
+e.preventDefault();
+verifyResult.className = 'verify-result success';
+verifyResult.textContent = '📨 A new code has been sent!';
+inputs.forEach(i => i.value = '');
+updateUI();
+inputs[0].focus();
+});
+inputs[0].focus();
+</script>
+</body>
+</html>

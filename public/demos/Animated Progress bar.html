@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Progress Bar Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1a2e,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:520px}
+.demo-title{color:#fff;text-align:center;margin-bottom:32px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#4ade80;font-weight:600}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:36px 28px;backdrop-filter:blur(12px)}
+.progress-group{margin-bottom:24px}
+.progress-group:last-child{margin-bottom:0}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-label{color:rgba(255,255,255,0.6);font-size:.9rem}
+.progress-pct{color:rgba(255,255,255,0.3);font-size:.85rem;font-weight:600;font-family:monospace}
+.progress-track{height:10px;background:rgba(255,255,255,0.04);border-radius:5px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)}
+.progress-fill{height:100%;border-radius:5px;width:0%;transition:width 1.5s cubic-bezier(.16,1,.3,1);position:relative}
+.progress-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:shimmer 2s ease infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.fill-html{background:linear-gradient(90deg,#e34f26,#f06529)}
+.fill-css{background:linear-gradient(90deg,#1572b6,#33a9dc)}
+.fill-js{background:linear-gradient(90deg,#f7df1e,#ffd700);color:#0d1117}
+.fill-react{background:linear-gradient(90deg,#61dafb,#00bcd4)}
+.fill-ts{background:linear-gradient(90deg,#3178c6,#5c8dd6)}
+.controls{display:flex;gap:12px;margin-top:28px;justify-content:center}
+.controls button{padding:12px 24px;border-radius:12px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-animate{background:#4ade80;border:none;color:#0d1117}
+.btn-animate:hover{background:#6ee7b7;transform:translateY(-1px);box-shadow:0 4px 16px rgba(74,222,128,0.2)}
+.btn-reset{background:transparent;border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5)}
+.btn-reset:hover{color:#fff;border-color:rgba(255,255,255,0.15)}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">📊 <span>Progress</span> Bars</h1>
+<div class="card">
+<div class="progress-group">
+<div class="progress-header"><span class="progress-label">HTML</span><span class="progress-pct" id="pct1">0%</span></div>
+<div class="progress-track"><div class="progress-fill fill-html" id="bar1" style="width:0%"></div></div>
+</div>
+<div class="progress-group">
+<div class="progress-header"><span class="progress-label">CSS</span><span class="progress-pct" id="pct2">0%</span></div>
+<div class="progress-track"><div class="progress-fill fill-css" id="bar2" style="width:0%"></div></div>
+</div>
+<div class="progress-group">
+<div class="progress-header"><span class="progress-label">JavaScript</span><span class="progress-pct" id="pct3">0%</span></div>
+<div class="progress-track"><div class="progress-fill fill-js" id="bar3" style="width:0%"></div></div>
+</div>
+<div class="progress-group">
+<div class="progress-header"><span class="progress-label">React</span><span class="progress-pct" id="pct4">0%</span></div>
+<div class="progress-track"><div class="progress-fill fill-react" id="bar4" style="width:0%"></div></div>
+</div>
+<div class="progress-group">
+<div class="progress-header"><span class="progress-label">TypeScript</span><span class="progress-pct" id="pct5">0%</span></div>
+<div class="progress-track"><div class="progress-fill fill-ts" id="bar5" style="width:0%"></div></div>
+</div>
+<div class="controls">
+<button class="btn-animate" id="animateBtn">▶ Animate</button>
+<button class="btn-reset" id="resetBtn">Reset</button>
+</div>
+</div>
+</div>
+<script>
+const targets = [92, 85, 78, 65, 55];
+const bars = [1,2,3,4,5].map(i => document.getElementById(`bar${i}`));
+const pcts = [1,2,3,4,5].map(i => document.getElementById(`pct${i}`));
+function animate() {
+bars.forEach((bar, i) => {
+const target = targets[i];
+bar.style.width = `${target}%`;
+pcts[i].textContent = `${target}%`;
+});
+}
+function reset() {
+bars.forEach((bar, i) => { bar.style.width = '0%'; pcts[i].textContent = '0%'; });
+}
+document.getElementById('animateBtn').addEventListener('click', animate);
+document.getElementById('resetBtn').addEventListener('click', reset);
+setTimeout(animate, 500);
+</script>
+</body>
+</html>

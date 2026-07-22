@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dropdown Menu Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:600px}
+.demo-title{color:#fff;text-align:center;margin-bottom:32px;font-size:1.8rem;font-weight:300;letter-spacing:.05em}
+.demo-title span{color:#6c63ff;font-weight:600}
+.navbar{background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{color:#fff;font-weight:700;font-size:1.1rem}
+.nav-items{display:flex;gap:6px;list-style:none}
+.dropdown{position:relative}
+.dropdown-trigger{background:transparent;border:none;color:rgba(255,255,255,0.75);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.9rem;transition:all .2s;display:flex;align-items:center;gap:6px;font-family:inherit}
+.dropdown-trigger:hover{background:rgba(108,99,255,0.15);color:#fff}
+.dropdown-trigger .arrow{transition:transform .3s cubic-bezier(.34,1.56,.64,1);display:inline-block;font-size:.6rem}
+.dropdown-trigger .arrow.open{transform:rotate(180deg)}
+.dropdown-menu{position:absolute;top:calc(100% + 8px);left:0;min-width:200px;background:rgba(30,27,75,0.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:6px;opacity:0;transform:translateY(-8px) scale(.96);pointer-events:none;transition:all .25s cubic-bezier(.16,1,.3,1);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.dropdown-menu.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.dropdown-item{display:block;width:100%;padding:10px 14px;background:transparent;border:none;color:rgba(255,255,255,0.7);font-size:.85rem;border-radius:8px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit}
+.dropdown-item:hover{background:rgba(108,99,255,0.15);color:#fff;padding-left:20px}
+.dropdown-divider{height:1px;background:rgba(255,255,255,0.06);margin:4px 8px}
+.theme-toggle{background:rgba(255,255,255,0.06);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.theme-toggle:hover{background:rgba(255,255,255,0.12)}
+.mobile-hint{text-align:center;margin-top:24px;color:rgba(255,255,255,0.3);font-size:.8rem}
+@media(max-width:500px){.nav-items{gap:0}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">✨ <span>Dropdown</span> Menu</h1>
+<nav class="navbar">
+<div class="brand">NavUI</div>
+<ul class="nav-items">
+<li class="dropdown">
+<button class="dropdown-trigger" data-dropdown="products">Products <span class="arrow">▼</span></button>
+<div class="dropdown-menu" id="products">
+<button class="dropdown-item">📱 Mobile App</button>
+<button class="dropdown-item">💻 Web Platform</button>
+<button class="dropdown-item">☁️ Cloud Services</button>
+<div class="dropdown-divider"></div>
+<button class="dropdown-item">📊 Analytics</button>
+</div>
+</li>
+<li class="dropdown">
+<button class="dropdown-trigger" data-dropdown="resources">Resources <span class="arrow">▼</span></button>
+<div class="dropdown-menu" id="resources">
+<button class="dropdown-item">📄 Documentation</button>
+<button class="dropdown-item">🎓 Tutorials</button>
+<button class="dropdown-item">📦 API Reference</button>
+<div class="dropdown-divider"></div>
+<button class="dropdown-item">💬 Community</button>
+</div>
+</li>
+<li class="dropdown">
+<button class="dropdown-trigger" data-dropdown="settings">Settings <span class="arrow">▼</span></button>
+<div class="dropdown-menu" id="settings">
+<button class="dropdown-item">👤 Profile</button>
+<button class="dropdown-item">🔒 Privacy</button>
+<button class="dropdown-item">⚡ Preferences</button>
+<div class="dropdown-divider"></div>
+<button class="dropdown-item">🚪 Sign Out</button>
+</div>
+</li>
+</ul>
+<button class="theme-toggle">🌙</button>
+</nav>
+<p class="mobile-hint">▼ Click any dropdown trigger to open</p>
+</div>
+<script>
+document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
+trigger.addEventListener('click', e => {
+e.stopPropagation();
+const targetId = trigger.dataset.dropdown;
+const menu = document.getElementById(targetId);
+const arrow = trigger.querySelector('.arrow');
+const isOpen = menu.classList.contains('open');
+document.querySelectorAll('.dropdown-menu.open').forEach(m => {
+if (m !== menu) {
+m.classList.remove('open');
+m.closest('.dropdown').querySelector('.arrow')?.classList.remove('open');
+}
+});
+if (isOpen) {
+menu.classList.remove('open');
+arrow.classList.remove('open');
+} else {
+menu.classList.add('open');
+arrow.classList.add('open');
+}
+});
+});
+document.addEventListener('click', () => {
+document.querySelectorAll('.dropdown-menu.open').forEach(m => {
+m.classList.remove('open');
+m.closest('.dropdown').querySelector('.arrow')?.classList.remove('open');
+});
+});
+document.querySelectorAll('.dropdown-item').forEach(item => {
+item.addEventListener('click', () => {
+document.querySelectorAll('.dropdown-menu.open').forEach(m => {
+m.classList.remove('open');
+m.closest('.dropdown').querySelector('.arrow')?.classList.remove('open');
+});
+});
+});
+</script>
+</body>
+</html>

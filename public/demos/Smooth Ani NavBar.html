@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smooth NavBar Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#161b22,#0d1117);min-height:100vh}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 24px;transition:all .3s}
+nav.scrolled{background:rgba(13,17,23,0.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{color:#fff;font-weight:800;font-size:1.2rem;text-decoration:none}
+.logo span{color:#58a6ff}
+.nav-center{display:flex;gap:4px;list-style:none}
+.nav-link{color:rgba(255,255,255,0.5);text-decoration:none;padding:8px 18px;border-radius:8px;font-size:.9rem;transition:all .2s;position:relative}
+.nav-link::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:#58a6ff;border-radius:1px;transition:width .25s cubic-bezier(.16,1,.3,1)}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.04)}
+.nav-link:hover::after{width:60%}
+.nav-link.active{color:#58a6ff}
+.nav-link.active::after{width:60%}
+.nav-actions{display:flex;gap:8px}
+.btn{text-decoration:none;padding:8px 18px;border-radius:8px;font-size:.85rem;font-weight:600;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-outline{color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.1)}
+.btn-outline:hover{color:#fff;border-color:#58a6ff;background:rgba(88,166,255,0.06)}
+.btn-primary{background:#58a6ff;color:#0d1117;border:1px solid #58a6ff}
+.btn-primary:hover{background:#79b8ff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(88,166,255,0.2)}
+.mobile-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:4px}
+.hero{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:80px 24px;text-align:center}
+.hero h1{color:#fff;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:16px}
+.hero h1 span{color:#58a6ff}
+.hero p{color:rgba(255,255,255,0.4);max-width:560px;font-size:1.1rem;line-height:1.7}
+.indicator{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.15);font-size:.8rem;font-family:monospace}
+@media(max-width:768px){
+.nav-center{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(13,17,23,0.98);backdrop-filter:blur(12px);flex-direction:column;padding:12px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-center.open{display:flex}
+.mobile-toggle{display:block}
+}
+</style>
+</head>
+<body>
+<nav id="navbar">
+<div class="nav-inner">
+<a href="#" class="logo">Dev<span>Hub</span></a>
+<ul class="nav-center" id="navMenu">
+<a href="#" class="nav-link active">Home</a>
+<a href="#" class="nav-link">Features</a>
+<a href="#" class="nav-link">Pricing</a>
+<a href="#" class="nav-link">Docs</a>
+<a href="#" class="nav-link">About</a>
+</ul>
+<div class="nav-actions">
+<a href="#" class="btn btn-outline">Log In</a>
+<a href="#" class="btn btn-primary">Sign Up</a>
+<button class="mobile-toggle" id="mobileToggle">☰</button>
+</div>
+</div>
+</nav>
+<main class="hero">
+<div>
+<h1>Smooth <span>Navigation</span></h1>
+<p>Scroll down to see the navbar transition from transparent to solid. Hover over links to see the animated underline effect.</p>
+<div class="indicator">▸ SCROLL ▸</div>
+</div>
+</main>
+<script>
+const nav = document.getElementById('navbar');
+const mobileToggle = document.getElementById('mobileToggle');
+const navMenu = document.getElementById('navMenu');
+let lastScroll = 0;
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); }, {passive:true});
+mobileToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+document.querySelectorAll('.nav-link').forEach(link => { link.addEventListener('click', () => navMenu.classList.remove('open')); });
+</script>
+</body>
+</html>

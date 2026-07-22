@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floating Labels Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#161b22,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{width:100%;max-width:440px}
+.demo-title{color:#fff;text-align:center;margin-bottom:32px;font-size:1.8rem;font-weight:300}
+.demo-title span{color:#58a6ff;font-weight:600}
+.form-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:32px;backdrop-filter:blur(12px)}
+.form-group{position:relative;margin-bottom:24px}
+.form-group textarea{resize:vertical;min-height:100px}
+.floating-input{width:100%;padding:18px 16px 10px;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.08);border-radius:12px;outline:none;color:#fff;font-size:1rem;font-family:inherit;transition:all .25s;position:relative;z-index:1}
+.floating-input:focus{border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,0.1);background:rgba(88,166,255,0.04)}
+.floating-input.has-value{background:rgba(255,255,255,0.03)}
+.floating-label{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.25);font-size:.95rem;pointer-events:none;transition:all .2s cubic-bezier(.4,0,.2,1);z-index:2;background:transparent;padding:0 4px}
+.floating-input:focus ~ .floating-label,
+.floating-input.has-value ~ .floating-label{top:6px;transform:translateY(0);font-size:.7rem;color:#58a6ff}
+.floating-input.has-value ~ .floating-label{color:rgba(255,255,255,0.4)}
+.floating-input:focus.has-value ~ .floating-label{color:#58a6ff}
+.form-group textarea ~ .floating-label{top:18px;transform:translateY(0)}
+.form-group textarea:focus ~ .floating-label,
+.form-group textarea.has-value ~ .floating-label{top:6px;font-size:.7rem;color:#58a6ff}
+.input-hint{font-size:.75rem;color:rgba(255,255,255,0.2);margin-top:4px;padding-left:16px;transition:color .2s}
+.floating-input:focus ~ .input-hint{color:rgba(88,166,255,0.4)}
+.submit-btn{width:100%;padding:14px;background:#58a6ff;border:none;border-radius:12px;color:#0d1117;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+.submit-btn:hover{background:#79b8ff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(88,166,255,0.3)}
+.submit-btn:active{transform:translateY(0)}
+</style>
+</head>
+<body>
+<div class="container">
+<h1 class="demo-title">🏷️ <span>Floating</span> Labels</h1>
+<div class="form-card">
+<div class="form-group">
+<input type="text" class="floating-input" id="name">
+<label class="floating-label" for="name">Full Name</label>
+</div>
+<div class="form-group">
+<input type="email" class="floating-input" id="email">
+<label class="floating-label" for="email">Email Address</label>
+</div>
+<div class="form-group">
+<input type="password" class="floating-input" id="password">
+<label class="floating-label" for="password">Password</label>
+</div>
+<div class="form-group">
+<textarea class="floating-input" id="message"></textarea>
+<label class="floating-label" for="message">Your Message</label>
+</div>
+<button class="submit-btn">Submit →</button>
+</div>
+</div>
+<script>
+document.querySelectorAll('.floating-input').forEach(input => {
+input.addEventListener('input', () => {
+if (input.value.trim()) {
+input.classList.add('has-value');
+} else {
+input.classList.remove('has-value');
+}
+});
+input.addEventListener('blur', () => {
+if (input.value.trim()) {
+input.classList.add('has-value');
+} else {
+input.classList.remove('has-value');
+}
+});
+});
+</script>
+</body>
+</html>
