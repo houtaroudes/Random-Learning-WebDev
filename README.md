@@ -99,7 +99,7 @@ The root directory also contains the original standalone exercise files (`.html`
 
 - **Exercises:** 26
 - **Code Challenges:** 5
-- **Technologies:** HTML5, CSS3, JavaScript, React, TypeScript, GSAP, LocalStorage, PHP
+- **Technologies:** HTML5, CSS3, JavaScript, React, TypeScript, GSAP, PHP
 - **Features:** Dark Mode, QR Generator, Password Generator, OTP UI, POS System, and more!
 
 ---
